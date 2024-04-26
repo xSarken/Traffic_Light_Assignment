@@ -35,6 +35,7 @@ def convert(value):
 
 def read_all_data():
     records = []
+
     with open(file_path, mode='r', newline='', encoding='utf-8') as file:
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
@@ -63,6 +64,7 @@ def color_active_time(data):
     red_time_total = 0
     yellow_time_total = 0
     green_time_total = 0
+
     for entry in data:
         if entry[RED] == TRAFFIC_LIGHT_ENABLED:
             red_time_total += entry["TimeActive"]
@@ -76,6 +78,7 @@ def color_active_time(data):
 
 def green_active_at_time(data):
     active_times = []
+
     for entry in data:
         if entry[GREEN] == TRAFFIC_LIGHT_ENABLED:
             active_times.append(entry["Time"])
@@ -102,11 +105,11 @@ def completed_cycles(data):
 
 def find_mistakes(data):
     mistake_count = 0
+
     for entry in data:
         red, yellow, green = entry[RED], entry[YELLOW], entry[GREEN]
         if is_mistake(red, yellow, green):
             mistake_count += 1
-
     return print(f"Mistakes {mistake_count}")
 
 

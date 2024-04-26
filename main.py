@@ -83,12 +83,7 @@ def find_mistakes(data):
 
 
 def is_mistake(red, yellow, green):
-    return (red and yellow and not green)\
-           or (red and green and not yellow)\
-           or (yellow and green and not red)\
-           or (not yellow and not green and not red)\
-           or (yellow and green and red)
-
+    return red == yellow == green or (red + yellow + green == 2)
 
 
 data = read_all_data()

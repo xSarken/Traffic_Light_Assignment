@@ -1,17 +1,45 @@
-import pandas as pd
+import csv
 
 file_path = "data.txt"
 
-TRAFFIC_LIGHT_DISABLED = 0
 TRAFFIC_LIGHT_ENABLED = 1
 
 RED = "Red"
 GREEN = "Green"
 YELLOW = "Yellow"
 
+
+def is_float(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
+
+def is_int(value):
+    try:
+        int(value)
+        return True
+    except ValueError:
+        return False
+
+
+def convert(value):
+    if is_int(value):
+        return int(value)
+    elif is_float(value):
+        return float(value)
+    return value
+
+
 def read_all_data():
-    df = pd.read_csv(file_path)
-    records = df.to_dict(orient='records')
+    records = []
+    with open(file_path, mode='r', newline='', encoding='utf-8') as file:
+        csv_reader = csv.DictReader(file)
+        for row in csv_reader:
+            converted_row = {key: convert(value) for key, value in row.items()}
+            records.append(converted_row)
     return records
 
 
